@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='utf-8'?>
+<manifest android:hardwareAccelerated="true" 
+    android:versionCode="1"
+     android:versionName="0.0.1"
+      package="com.testpushyme" 
+     xmlns:android="http://schemas.android.com/apk/res/android">
+    <supports-screens android:anyDensity="true"
+         android:largeScreens="true" 
+        android:normalScreens="true"
+         android:resizeable="true"
+         android:smallScreens="true" 
+         android:xlargeScreens="true" />
+    
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+   
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+   <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <!-- Added in Pushy SDK v1.0.1 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    
+    <application android:hardwareAccelerated="true" 
+        android:icon="@drawable/icon"
+         android:label="@string/app_name" 
+         android:supportsRtl="true">
+        <activity android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale" 
+            android:label="@string/activity_name" android:launchMode="singleTop" 
+            android:name="com.CDVPushyMe.MainActivity" android:theme="@android:style/Theme.Black.NoTitleBar" 
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter android:label="@string/launcher_name">
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+              <!-- Pushy Declarations -->
+
+    <!-- Pushy Notification Receiver -->
+    <!-- Incoming pushes will be redirected to the following BroadcastReceiver class -->
+    <receiver android:name="com.lokesh.CDVpushyMe.plugin.PushReceiver" >
+        <intent-filter>
+            <action android:name="pushy.me" />
+        </intent-filter>
+    </receiver>
+
+    <!-- Pushy Update Receiver -->
+    <!-- Do not modify (except for package name) - internal BroadcastReceiver that restarts the listener service -->
+    <receiver android:name="me.pushy.sdk.receivers.PushyUpdateReceiver">
+        <intent-filter>
+            <action android:name="android.intent.action.PACKAGE_REPLACED" />
+            <data android:path="com.testpushyme" android:scheme="package" />
+        </intent-filter>
+    </receiver>
+
+    <!-- Pushy Boot Receiver -->
+    <!-- Do not modify - internal BroadcastReceiver that restarts the listener service -->
+    <receiver android:name="me.pushy.sdk.receivers.PushyBootReceiver" >
+        <intent-filter>
+            <action android:name="android.intent.action.BOOT_COMPLETED"/>
+        </intent-filter>
+    </receiver>
+
+    <!-- Pushy Socket Service -->
+    <!-- Do not modify - internal listener background service -->
+    <service android:name="me.pushy.sdk.services.PushySocketService"/>
+
+<!-- End Pushy Declarations -->
+    </application>
+    <uses-sdk android:minSdkVersion="10" android:targetSdkVersion="22" />
+</manifest>
